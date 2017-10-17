@@ -51,3 +51,6 @@ foldn h c (Succ n) = h (foldn h c n)
 
 (*) :: Nat -> Nat -> Nat
 (*) m n = foldn ((+) m) m n
+
+(^) :: Nat -> Nat -> Nat
+(^) m n = foldn ((*) m) m n 

@@ -1,5 +1,6 @@
 -- Code for the third chapter: Numbers
 
+-- this line avoids Haskell getting confused on which + should use
 import Prelude hiding ((+))
 
 data Nat = Zero | Succ Nat

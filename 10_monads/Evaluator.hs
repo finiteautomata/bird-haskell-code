@@ -12,6 +12,8 @@ eval (Div t1 t2) = do x <- eval t1
 
 evalEx :: Term -> Exc Int
 evalEx (Con x) = Return x
-evalEx (Div t1 t2) = do x <- eval t1
-                        y <- eval t2
-                        raise "division by zero"
+evalEx (Div t1 t2) = do x <- evalEx t1
+                        y <- evalEx t2
+                        if y == 0
+                          then raise "Division by zero"
+                          else return (x `div` y)

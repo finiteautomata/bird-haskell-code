@@ -1,8 +1,7 @@
 -- import Monad
 module Evaluator where
 import Exception
-
-data Term = Con Int | Div Term Term
+import Term
 
 eval :: Monad m => Term -> m Int
 eval (Con x) = return x

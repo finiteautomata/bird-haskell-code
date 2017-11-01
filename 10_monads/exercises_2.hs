@@ -1,6 +1,5 @@
 import Exception
 
-
 data Term = Con Int | Div Term Term | Try Term Term
 
 try :: Exc a -> Exc a -> Exc a
@@ -27,3 +26,21 @@ eval (Div t1 t2) = do x <- eval t1
                         then raise "Division by zero"
                         else return (x `div` y)
 eval (Try t1 t2) = try (eval t1) (eval t2)
+
+--
+-- 10.2.2 In the evaluator that counts the number of division, the use of state
+-- is somewhat heavy-handed. Instead of keeping track of a current state, each
+-- computation can simply return a value paired with the number of operations
+-- required to compute it:
+-- data Count a = (a, Counter)
+-- type Counter = Int
+-- Modify the evaluator to use this new computation type.
+
+type Counter = Int
+type Count a = (a, Counter)
+
+evalCount :: Term -> Count Int
+evalCount (Con x) = (x, 0)
+evalCount (Div t1 t2) = (div x y, s1 + s2 + 1)
+  where (x, s1) = evalCount t1
+        (y, s2) = evalCount t2
